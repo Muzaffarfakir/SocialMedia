@@ -6,7 +6,7 @@ function Home() {
 
 
     function show() {
-        fetch("http://localhost:8000/allpost").then((res) => res.json()).then((data) => {
+        fetch("https://socail-back.onrender.com/allpost").then((res) => res.json()).then((data) => {
              console.log(data)
                 setData(data[0].post)
 
