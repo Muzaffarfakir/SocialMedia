@@ -29,7 +29,7 @@ function Profile() {
         data.append("imgs", file);
         axios({
             method: "post",
-            url: "http://localhost:8000/postImg",
+            url: "https://socail-back.onrender.com/postImg",
             data: data,
             config: {
                 headers: {
@@ -48,13 +48,13 @@ function Profile() {
             alert("Write sometings here first")
         }
         else {
-            axios.post("http://localhost:8000/posts", { text, id });
+            axios.post("https://socail-back.onrender.com/posts", { text, id });
             window.location.reload();
 
         }
     }
     function Show() {
-        fetch(`http://localhost:8000/profile/${id}`).then((res) => res.json()).then((data) => {
+        fetch(`https://socail-back.onrender.com/profile/${id}`).then((res) => res.json()).then((data) => {
             setData(data)
             setDataPost(data[0].post)
 
