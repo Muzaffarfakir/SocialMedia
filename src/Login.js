@@ -12,7 +12,7 @@ function Login() {
     let nav=useNavigate()
 
     function log() {
-        axios.post("http://localhost:8000/login", { email, pass }).then((res)=>{
+        axios.post("https://socail-back.onrender.com/login", { email, pass }).then((res)=>{
            if(res.data.mess=="hai"){
             setCookies("access_token",res.data.token)
             window.localStorage.setItem("token",res.data.token);
