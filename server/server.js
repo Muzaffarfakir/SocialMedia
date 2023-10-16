@@ -121,7 +121,7 @@ app.post("/posts",async (req, res) => {
   
     let _id=req.body.id
     let v=Math.floor(Math.random()*100);
-     User.findOneAndUpdate({_id:_id},{$push:{post:{text:req.body.text,img:d.url,view:v}}})
+   await  User.findOneAndUpdate({_id:_id},{$push:{post:{text:req.body.text,img:d.url,view:v}}})
           
     }catch(er){
         console.log(er);
