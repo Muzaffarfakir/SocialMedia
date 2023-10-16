@@ -114,14 +114,14 @@ app.post('/postsid',(req,res)=>{
 })
 
 app.post("/posts",async (req, res) => {
-   // let url = req.protocol + "://" + req.get("host");
+    let url = req.protocol + "://" + req.get("host");
     try{
-    let d= await cloud.uploader.upload(imgs)
+  //  let d= await cloud.uploader.upload(imgs)
         
   
     let _id=req.body.id
     let v=Math.floor(Math.random()*100);
-   await  User.findOneAndUpdate({_id:_id},{$push:{post:{text:req.body.text,img:d.url,view:v}}})
+   await  User.findOneAndUpdate({_id:_id},{$push:{post:{text:req.body.text,img:url,view:v}}})
           
     }catch(er){
         console.log(er);
