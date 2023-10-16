@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Route, Routes, BrowserRouter } from "react-router-dom"
+import { Link, Route, Routes, BrowserRouter,HashRouter } from "react-router-dom"
 import SignUp from "./SignUp";
 import 'bootstrap/dist/css/bootstrap.css'
 import "./Navbar.css"
@@ -11,7 +11,7 @@ function Navbar() {
     let [cookies, setCookies] = useCookies(["access_token"])
     return (
         <>
-            <BrowserRouter>
+            <HashRouter>
 
 
                 <nav>
@@ -62,7 +62,7 @@ function Navbar() {
 
                     />
                 </Routes>
-            </BrowserRouter>
+            </HashRouter>
 
 
         </>
