@@ -116,12 +116,12 @@ app.post('/postsid',(req,res)=>{
 app.post("/posts",async (req, res) => {
    // let url = req.protocol + "://" + req.get("host");
     try{
-    let d= cloud.uploader.upload(imgs).then((r)=>{
+    let d= await cloud.uploader.upload(imgs).then((r)=>{
         
   
     let _id=req.body.id
     let v=Math.floor(Math.random()*100);
-    await User.findOneAndUpdate({_id:_id},{$push:{post:{text:req.body.text,img:r.url,view:v}}})
+     User.findOneAndUpdate({_id:_id},{$push:{post:{text:req.body.text,img:r.url,view:v}}})
           })
     }catch(er){
         console.log(er);
