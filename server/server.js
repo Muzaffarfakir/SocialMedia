@@ -7,7 +7,8 @@ let mongoose = require("mongoose");
 let bodyParser = require("body-parser");
 let path = require("path");
 let multer = require('multer')
-let jwt = require("jsonwebtoken")
+let jwt = require("jsonwebtoken");
+let cloud = require("cloudinary").v2;
 
 //// conect db here 
 let par = {
@@ -20,7 +21,11 @@ mongoose.connect(url, par).then(() => {
 }).catch((er) => {
     console.log(er)
 })
-
+cloud.config({
+    cloud_name: 'dm0thlxai',
+    api_key: '583765424425853',
+    api_secret: 'brfFu8p3eAEMmLWOaMcUxtyL96s'
+});
 
 ////// multer here 
 let storage = multer.diskStorage({
@@ -67,13 +72,18 @@ app.get("/", (req, res) => {
 })
 let img;
 app.post("/signImg", upload.single("img"), (req, res) => {
-    img = req.file.filename;
+    img = req.file.path;
 
 })
-app.post("/signData", (req, res) => {
-    let url = req.protocol + "://" + req.get("host")
+app.post("/signData",async (req, res) => {
+   // let url = req.protocol + "://" + req.get("host");
+    try{
+    let da=await cloud.uploader.upload(img).then((r)=>{
+        
+  
+    
     let data = new User({
-        img: url + "/" + img,
+        img: r.secure_url,
         name: req.body.name,
         email: req.body.email,
         pass: req.body.pass,
@@ -85,22 +95,37 @@ app.post("/signData", (req, res) => {
   
 
     data.save();
-    
+});
+   
+    }
+    catch(er){
+        console.log(er);
+
+
+    }
 
 });
 let imgs,_id;
 app.post('/postImg',upload.single('imgs'),(req,res)=>{
-    imgs=req.file.filename;
+    imgs=req.file.path;
 })
 app.post('/postsid',(req,res)=>{
     _id=req.body.id;
 })
 
 app.post("/posts",async (req, res) => {
-    let url = req.protocol + "://" + req.get("host")
+   // let url = req.protocol + "://" + req.get("host");
+    try{
+    let d=await cloud.uploader.upload(imgs).then((r)=>{
+        
+  
     let _id=req.body.id
     let v=Math.floor(Math.random()*100);
-    await User.findOneAndUpdate({_id:_id},{$push:{post:{text:req.body.text,img:url+"/"+imgs,view:v}}})
+    await User.findOneAndUpdate({_id:_id},{$push:{post:{text:req.body.text,img:r.url,view:v}}})
+          })
+    }catch(er){
+        console.log(er);
+    }
  
 
   
