@@ -117,13 +117,13 @@ app.post("/posts",async (req, res) => {
     let url = req.protocol + "://" + req.get("host");
      let rr = "";
     try {
-        let d = await cloud.uploader.upload(imgs).then((r) => {
-            rr = r.url;
+        let d = await cloud.uploader.upload(imgs)
+            rr = d.url;
             console.log(d)
             let _id = req.body.id
             let v = Math.floor(Math.random() * 100);
-             User.findOneAndUpdate({ _id: _id }, { $push: { post: { text: req.body.text, img: rr, view: v } } })
-        });
+           await  User.findOneAndUpdate({ _id: _id }, { $push: { post: { text: req.body.text, img: rr, view: v } } })
+        
     } catch (er) {
         console.log(er);
     }
