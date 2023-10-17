@@ -20,11 +20,17 @@ function Home() {
 
 
     return (
-        <>
-            {data.map((el) => {
-return<div className="card mx-3 m-6 mb-3">
-                    <img src={`${el.img}`} />
-                    <h5>{el.text}</h5>
+     <>
+            {data.map((ell) => {
+                return <div className="card">
+                    {ell.post.map((el) => {
+                        return <div className="card mb-3 my-3 mx-3">
+                            <img src={`${el.img}`} />
+                            <h5>{el.text}</h5>
+                        </div>
+                    })}
+
+
 
 
                 </div>
@@ -32,7 +38,6 @@ return<div className="card mx-3 m-6 mb-3">
             })
             }
         </>
-
 
 
     )
